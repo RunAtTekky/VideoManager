@@ -12,11 +12,15 @@ cur.execute('''
 ''')
 
 def list_videos():
-    pass
+    cur.execute('SELECT * FROM videos')
+    for row in cur.fetchall():
+        print(row)
 
 def add_videos():
     name = input('Enter name: ')
     time = input('Enter time: ')
+    cur.execute('INSERT INTO videos (name, time) VALUES (?, ?)', (name,time))
+    cur.commit()
 
 
 
@@ -24,9 +28,12 @@ def update_videos():
     video_id = input('Enter video id: ')
     name = input('Enter name: ')
     time = input('Enter time: ')
+    cur.execute('UPDATE videos SET name = ?, time = ? WHERE id = ?', (name, time, video_id))
+    cur.commit()
 
 def delete_videos():
     video_id = input('Enter video id: ')
+    cur.execute('DELETE FROM videos WHERE id = ?', (video_id,))
 
 
 def main():
@@ -53,6 +60,10 @@ def main():
                 break
             case _:
                 break
+        
+        input('Press enter to continue. ')
+
+    con.close()
 
 if __name__ == "__main__":
     main()

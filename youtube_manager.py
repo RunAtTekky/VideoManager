@@ -20,18 +20,20 @@ def add_videos():
     name = input('Enter name: ')
     time = input('Enter time: ')
     cur.execute('INSERT INTO videos (name, time) VALUES (?, ?)', (name,time))
-    cur.commit()
+    con.commit()
 
 
 
 def update_videos():
+    list_videos()
     video_id = input('Enter video id: ')
     name = input('Enter name: ')
     time = input('Enter time: ')
     cur.execute('UPDATE videos SET name = ?, time = ? WHERE id = ?', (name, time, video_id))
-    cur.commit()
+    con.commit()
 
 def delete_videos():
+    list_videos()
     video_id = input('Enter video id: ')
     cur.execute('DELETE FROM videos WHERE id = ?', (video_id,))
 

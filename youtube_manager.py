@@ -13,14 +13,19 @@ cur.execute('''
 
 def list_videos():
     cur.execute('SELECT * FROM videos')
+    print('\n')
+    print('_'*70)
     for row in cur.fetchall():
         print(row)
+    print('_'*70)
+    print('\n')
 
 def add_videos():
     name = input('Enter name: ')
     time = input('Enter time: ')
     cur.execute('INSERT INTO videos (name, time) VALUES (?, ?)', (name,time))
     con.commit()
+    print('\n \t Addition successful')
 
 
 
@@ -31,11 +36,14 @@ def update_videos():
     time = input('Enter time: ')
     cur.execute('UPDATE videos SET name = ?, time = ? WHERE id = ?', (name, time, video_id))
     con.commit()
+    print('\n \t Update successful')
 
 def delete_videos():
     list_videos()
     video_id = input('Enter video id: ')
     cur.execute('DELETE FROM videos WHERE id = ?', (video_id,))
+    con.commit()
+    print('\n \t Deletion successful')
 
 
 def main():
@@ -46,6 +54,8 @@ def main():
         print('3. Update videos')
         print('4. Delete videos')
         print('5. Exit app')
+
+        print('\n')
 
         choice = input("Enter your choice: ")
 
@@ -61,7 +71,7 @@ def main():
             case '5':
                 break
             case _:
-                break
+                pass
         
         input('Press enter to continue. ')
 
